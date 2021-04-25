@@ -5,12 +5,28 @@ import Footer from "./components/Footer";
 import Main from "./components/Main";
 
 function App() {
-  const [items, setItems] = useState([false, "shani", "yana", 5]);
+  function addNewItem(itemTitle) {
+    setItems([...items, { title: itemTitle, completed: false }]);
+  }
+
+  function removeItem(item) {
+    console.log(item.title);
+    const updatedItems = items.filter(
+      (currentItem) => item.title != currentItem.title
+    );
+    setItems(updatedItems);
+  }
+
+  const [items, setItems] = useState([
+    { title: "first task", completed: false },
+    { title: "second task", completed: false },
+    { title: "third task", completed: false },
+  ]);
   return (
     <section className="todoapp">
-      <Header title="ToDoBoom" />
+      <Header title="ToDoBoom" addFunc={addNewItem} />
 
-      <Main mainItems={items} />
+      <Main mainItems={items} removeFunc={removeItem} />
 
       <Footer />
     </section>
